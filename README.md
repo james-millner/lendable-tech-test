@@ -2,6 +2,8 @@
 
 This project is an implementation of the Lendable tech test. It provides a simple shopping cart service with the ability to add, remove items, and generate an itemized receipt.
 
+By [James Millner](https://jamesmillner.dev)
+
 ## Runtime
 
 I built this against Java 21:
@@ -23,4 +25,7 @@ But should be fine on 22 also. Bad habbit of not updating my global java version
 To run the tests, simply execute the following command:
 
 ```sh
-./gradlew test
+./gradlew test jacocoTestReport
+```
+
+The test report will be generated in the `build/jacocoHtml` directory.

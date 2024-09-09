@@ -7,16 +7,26 @@ plugins {
     //This is great in a personal project I host. Not sure why its not playing ball here - although suspect its gradle verison related.
     //Commenting for visibility.
     //id("org.jetbrains.dokka") version "1.9.20"
+
+    jacoco
 }
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.required.set(true)
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
 
 group = "com.lendable"
 version = "0.0.1-SNAPSHOT"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
 
 repositories {
     mavenCentral()
@@ -42,18 +52,3 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.register("copyDokkaDocs") {
-    dependsOn("dokkaHtml")
-    doLast {
-        val dokkaDocsDir = file("${buildDir}/documentation/html")
-        val targetDocsDir = file("../docs")
-
-        if (dokkaDocsDir.exists()) {
-            targetDocsDir.deleteRecursively()
-            targetDocsDir.mkdirs()
-            dokkaDocsDir.copyRecursively(targetDocsDir)
-        } else {
-            logger.warn("Dokka documentation directory not found. Please ensure Dokka has been executed.")
-        }
-    }
-}

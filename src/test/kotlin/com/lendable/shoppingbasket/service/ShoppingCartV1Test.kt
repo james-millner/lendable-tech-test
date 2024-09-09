@@ -33,6 +33,17 @@ class ShoppingCartV1Test {
         }
 
         @Test
+        fun `adding an item to the cart should throw after invalid quantity`() {
+            //Given
+            val item = aBasketItem()
+
+            //When
+            assertThrows(IllegalArgumentException::class.java) {
+                cart.addItem(item, 0)
+            }
+        }
+
+        @Test
         fun `removing an item from the cart that does exist should correct its quantity`() {
 
             //Given
@@ -47,11 +58,24 @@ class ShoppingCartV1Test {
         }
 
         @Test
+        fun `removing an item from the cart with a greater quantity than is present correctly removes the item`() {
+
+            //Given
+            val item = aBasketItem()
+            cart.addItem(item, 2)
+
+            //When
+            cart.removeItem(item, 4)
+
+            //Then
+            assertNull(cart.getItems()[item])
+        }
+
+        @Test
         fun `removing an item from the cart that doesnt exist should return null for that item`() {
 
             //Given
             val item = aBasketItem()
-            cart.addItem(item, 0)
 
             //When
             cart.removeItem(item, 1)

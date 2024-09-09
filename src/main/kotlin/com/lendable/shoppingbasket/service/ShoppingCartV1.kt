@@ -27,6 +27,9 @@ class ShoppingCartV1(val offers: Set<Offer>): ShoppingCart {
      * Add an item to the cart
      */
     override fun addItem(item: BasketItem, quantity: Int) {
+        if (quantity == 0) {
+            throw IllegalArgumentException("Quantity must be greater than 0")
+        }
         items[item] = items.getOrDefault(item, 0) + quantity
     }
 
