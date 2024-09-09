@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class ShoppingCartTest {
+class ShoppingCartV1Test {
 
-    private lateinit var cart: ShoppingCart
+    private lateinit var cart: ShoppingCartV1
 
     @BeforeEach
     fun setup() {
         val offer = aOffer()
-        cart = ShoppingCart(setOf(offer))
+        cart = ShoppingCartV1(setOf(offer))
     }
 
     @Nested
@@ -40,7 +40,7 @@ class ShoppingCartTest {
             cart.addItem(item, 2)
 
             //When
-            cart.removeItem(item)
+            cart.removeItem(item, 1)
 
             //Then
             assertEquals(1, cart.getItems()[item])
@@ -51,10 +51,10 @@ class ShoppingCartTest {
 
             //Given
             val item = aBasketItem()
-            cart.addItem(item)
+            cart.addItem(item, 0)
 
             //When
-            cart.removeItem(item)
+            cart.removeItem(item, 1)
 
             //Then
             assertNull(cart.getItems()[item])
@@ -63,7 +63,7 @@ class ShoppingCartTest {
         @Test
         fun `given a set of items, the total is correct for the cart`() {
             val item = aBasketItem("Banana", 1.50)
-            cart.addItem(item)
+            cart.addItem(item, 1)
 
             val receipt = cart.getItemisedReceipt()
 

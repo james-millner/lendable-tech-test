@@ -5,9 +5,19 @@ import com.lendable.shoppingbasket.model.Offer
 import com.lendable.shoppingbasket.model.Receipt
 import java.math.RoundingMode
 
+/**
+ * Generates a receipt for a shopping cart
+ * Bit of syntactic sugar to make the receipt look nice.
+ */
 class ReceiptGenerator {
 
     companion object {
+        /**
+         * Generates a receipt for the given items and offers
+         * @param items the items in the basket
+         * @param offers the offers available
+         * @return the receipt
+         */
         fun getReceipt(
             items: Map<BasketItem, Int>,
             offers: Set<Offer>
